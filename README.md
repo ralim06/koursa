@@ -1,2 +1,2 @@
-# todo-app
-Simple TODO list app using Node.js, Express and MySQL
+# coorsa app
+App using Node.js, Express and MySQL
