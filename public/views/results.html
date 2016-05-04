@@ -1,0 +1,12 @@
+<div ng-show="showResults">
+    <a href = "#search">Modifier la recherche</a>
+    <h2> Resultats </h2>
+    <ul ng-controller="ResultsController">
+        <li ng-repeat="result in results">
+            {{result.crs_id}}|{{result.crs_labelle}}
+        </li>
+        <li class="animate-repeat" ng-if="results.length == 0">
+            <strong>No results found...</strong>
+        </li>
+    </ul>
+</div>

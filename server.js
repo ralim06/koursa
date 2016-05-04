@@ -1,15 +1,32 @@
+// set up ======================================================================
 var express = require('express');
-var bodyparser = require('body-parser');
+var app = express(); 						// create our app w/ express
+//var mongoose = require('mongoose'); 				// mongoose for mongodb
+
 var connection = require('./connection');
-var routes = require('./routes/routes');
 
-var app = express();
-app.use(bodyparser.urlencoded({extended: true}));
-app.use(bodyparser.json());
+var port = process.env.PORT || 8080; 				// set the port
+//var database = require('./config/database'); 			// load the database config
+var morgan = require('morgan');
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+var routes = require('./app/routes');
+// configuration ===============================================================
+//mongoose.connect(database.localUrl); 	// Connect to local MongoDB instance. A remoteUrl is also available (modulus.io)
 
-connection.init();
+app.use(express.static(__dirname + '/public')); 		// set the static files location /public/img will be /img for users
+app.use(morgan('dev')); // log every request to the console
+app.use(bodyParser.urlencoded({'extended': 'true'})); // parse application/x-www-form-urlencoded
+app.use(bodyParser.json()); // parse application/json
+app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse application/vnd.api+json as json
+app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request
+
+
+// routes ======================================================================
 routes.configure(app);
 
-var server = app.listen(8000, function() {
-  console.log('Server listening on port 2 ' + server.address().port);
-});
+connection.init();
+
+// listen (start app with node server.js) ======================================
+app.listen(port);
+console.log("App listening on port " + port);

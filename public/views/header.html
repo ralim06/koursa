@@ -1,0 +1,9 @@
+<div class="masthead" ng-controller="HeaderCtrl">
+    <nav>
+        <ul class="nav nav-justified">
+            <li ng-repeat="menu in menus" ng-cloak>
+                <a href="{{menu.url}}">{{menu.label}}</a>
+            </li>
+        </ul>
+    </nav>
+</div>

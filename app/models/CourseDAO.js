@@ -1,9 +1,10 @@
-var connection = require('../connection');
+var connection = require('../../connection');
 
-function Todo() {
+function CourseDAO() {
   this.get = function(res) {
+    
     connection.acquire(function(err, con) {
-      con.query('select * from todo_list', function(err, result) {
+      con.query('select * from course', function(err, result) {
         con.release();
         res.send(result);
       });
@@ -13,7 +14,7 @@ function Todo() {
   this.create = function(todo, res) {
       console.log(todo);
     connection.acquire(function(err, con) {
-      con.query('insert into todo_list set ?', todo, function(err, result) {
+      con.query('insert into course set ?', todo, function(err, result) {
         con.release();
         if (err) {
           res.send({status: 1, message: 'TODO creation failed'});
@@ -26,7 +27,7 @@ function Todo() {
 
   this.update = function(todo, res) {
     connection.acquire(function(err, con) {
-      con.query('update todo_list set ? where id = ?', [todo, todo.id], function(err, result) {
+      con.query('update course set ? where id = ?', [todo, todo.id], function(err, result) {
         con.release();
         if (err) {
           res.send({status: 1, message: 'TODO update failed'});
@@ -39,7 +40,7 @@ function Todo() {
 
   this.delete = function(id, res) {
     connection.acquire(function(err, con) {
-      con.query('delete from todo_list where id = ?', [id], function(err, result) {
+      con.query('delete from course where id = ?', [id], function(err, result) {
         con.release();
         if (err) {
           res.send({status: 1, message: 'Failed to delete'});
@@ -51,4 +52,4 @@ function Todo() {
   };
 }
 
-module.exports = new Todo();
+module.exports = new CourseDAO();
