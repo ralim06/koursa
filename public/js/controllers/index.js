@@ -51,16 +51,11 @@ app.controller('ResultsController', function($scope, $http) {
     });
 });
 
-app.controller('HeaderCtrl', ["$scope",
-    function($scope) {
+app.controller('HeaderCtrl', ["$scope","MenuService",
+    function($scope, MenuService) {
         var self = this;
         $scope.$parent.isEdition = false;
-        $scope.$parent.menus = [
-            {id: 0, label: 'Qui sommes nous ?', url:"#login"},
-            {id: 1, label: 'Comment ça marcher ?', url:"#login"},
-            {id: 2, label: 'Inscription', url:"#login"},
-            {id: 3, label: 'Connexion', url:"#login"}
-        ];
+        $scope.$parent.menus = MenuService.all();
     }]);
 
 
@@ -70,7 +65,7 @@ app.controller('SearchCtrl', ["$scope",
         $scope.list = [];
     }]);
 
-app.controller('PostController', ['$scope', '$http', '$location', 'UserService', function($scope, $http, $location, UserService) {
+app.controller('PostController', ['$scope', '$http', '$location', function($scope, $http, $location) {
         this.postForm = function() {
         
             var encodedString = 'username=' +
@@ -88,7 +83,6 @@ app.controller('PostController', ['$scope', '$http', '$location', 'UserService',
                 console.log(data);
                 if ( data != null && data.length == 1 && data[0].user_login == jQuery("#inputUsername").val() 
                     && data[0].user_passwd == jQuery("#inputPassword").val()) {
-                    console.log(UserService.all());
                     $location.path( "/success" );
                 } else {
                     $scope.errorMsg = "Login not correct";
@@ -106,3 +100,18 @@ app.controller('SuccessController', ["$scope",
     function($scope) {
     }]
 );
+
+
+app.factory("MenuService", function() {
+    var itemsOfMenu = 
+        [{id: 0, label: 'Qui sommes nous ?', url:"#login"},
+         {id: 1, label: 'Comment ça marcher ?', url:"#login"},
+         {id: 2, label: 'Inscription', url:"#login"},
+         {id: 3, label: 'Connexion', url:"#login"}];
+
+  return {
+    all: function() {
+      return itemsOfMenu;
+    }
+  };
+});
