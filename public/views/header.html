@@ -4,6 +4,12 @@
             <li ng-repeat="menu in menus" ng-cloak>
                 <a href="{{menu.url}}">{{menu.label}}</a>
             </li>
+			<li ng-if="!isAuthenticated" ng-cloak>
+            	<a href="#" ng-click="logout()">Connexion</a>
+        	</li>
+			<li ng-if="isAuthenticated" ng-cloak>
+            	<a href="#" ng-click="logout()">Déconnexion</a>
+        	</li>
         </ul>
     </nav>
 </div>

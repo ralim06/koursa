@@ -1,13 +1,13 @@
 <div ng-show="showSearch">
-    <form name="formSearch" ng-submit="submit(searchCriteria)" ng-controller="SearchCtrl">
-        Ville de départ : <input id="start" name="start" ng-model="searchCriteria.startDate" class="typeahead" type="text" placeholder="Ville de départ" required>
-        <div ng-show="formSearch.$submitted || formSearch.start.$touched">
-            <div ng-show="formSearch.start.$error.required">Tell us your start.</div>
+    <form name="formSearch" ng-submit="submit(searchCriteria)" ng-controller="SearchController">
+        Ville de départ : <input id="startCity" name="startCity" ng-model="searchCriteria.startCity" class="typeahead" type="text" placeholder="Ville de départ" required>
+        <div ng-show="formSearch.$submitted || formSearch.startCity.$touched">
+            <div ng-show="formSearch.startCity.$error.required">Le point de départ est obligatoire.</div>
         </div>
 
-        Ville de d'arrivée : <input id="end" name="end" ng-model="searchCriteria.endDate" class="typeahead" type="text" placeholder="Ville d'arrivée" required>
-        <div ng-show="formSearch.$submitted || formSearch.end.$touched">
-            <div ng-show="formSearch.end.$error.required">Tell us your end.</div>
+        Ville de d'arrivée : <input id="endCity" name="endCity" ng-model="searchCriteria.endCity" class="typeahead" type="text" placeholder="Ville d'arrivée" required>
+        <div ng-show="formSearch.$submitted || formSearch.endCity.$touched">
+            <div ng-show="formSearch.endCity.$error.required">Le point de départ est obligatoire.</div>
         </div>
         Le
         <div id="datepicker" name="datepicker" ng-model="searchCriteria.datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
@@ -25,7 +25,7 @@
     $(function(){
         console.log('init calendar');
         // applied typeahead to the text input box
-        $('#start').typeahead({
+        $('#startCity').typeahead({
             name: 'countries',
             // data source
             prefetch: 'data/countries.json',
@@ -34,7 +34,7 @@
 
         });
 
-        $('#end').typeahead({
+        $('#endCity').typeahead({
             name: 'countries',
             // data source
             prefetch: 'data/countries.json',
@@ -48,14 +48,5 @@
             autoclose: true,
             todayHighlight: true
         }).datepicker('update', new Date());
-        
-
-        $('.states').typeahead({
-          name: 'countries',
-            // data source
-            prefetch: 'data/countries.json',
-            // max item numbers list in the dropdown
-            limit: 10,
-         });
     });
 </script>
