@@ -5,7 +5,11 @@ module.exports = {
   configure: function(app) {
     // COURSE
     app.get('/course/', function(req, res) {
-      CourseDAO.get(res);
+      CourseDAO.getAll(res);
+    });
+
+    app.get('/course/:id', function(req, res) {
+      CourseDAO.getById(req.params.id, res);
     });
 
     app.post('/course/', function(req, res) {

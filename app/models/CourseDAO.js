@@ -1,8 +1,7 @@
 var connection = require('../../connection');
 
 function CourseDAO() {
-  this.get = function(res) {
-    
+  this.getAll = function(res) {
     connection.acquire(function(err, con) {
       con.query('select * from course', function(err, result) {
         con.release();
@@ -11,28 +10,36 @@ function CourseDAO() {
     });
   };
 
-  this.create = function(todo, res) {
-      console.log(todo);
+  this.getById = function(id, res) {
     connection.acquire(function(err, con) {
-      con.query('insert into course set ?', todo, function(err, result) {
+      con.query('select * from course where crs_id = ?', [id], function(err, result) {
+        con.release();
+        res.send(result);
+      });
+    });
+  };
+
+  this.create = function(course, res) {
+    connection.acquire(function(err, con) {
+      con.query('insert into course set ?', course, function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'TODO creation failed'});
+          res.send({status: 1, message: 'course creation failed'});
         } else {
-          res.send({status: 0, message: 'TODO created successfully'});
+          res.send({status: 0, message: 'course created successfully'});
         }
       });
     });
   };
 
-  this.update = function(todo, res) {
+  this.update = function(course, res) {
     connection.acquire(function(err, con) {
-      con.query('update course set ? where id = ?', [todo, todo.id], function(err, result) {
+      con.query('update course set ? where crs_id = ?', [course, course.crs_id], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'TODO update failed'});
+          res.send({status: 1, message: 'course update failed'});
         } else {
-          res.send({status: 0, message: 'TODO updated successfully'});
+          res.send({status: 0, message: 'course updated successfully'});
         }
       });
     });
@@ -40,12 +47,12 @@ function CourseDAO() {
 
   this.delete = function(id, res) {
     connection.acquire(function(err, con) {
-      con.query('delete from course where id = ?', [id], function(err, result) {
+      con.query('delete from course where crs_id = ?', [id], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to delete'});
+          res.send({status: 1, message: 'Failed to delete course'});
         } else {
-          res.send({status: 0, message: 'Deleted successfully'});
+          res.send({status: 0, message: 'Course Deleted successfully'});
         }
       });
     });
