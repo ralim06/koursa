@@ -1,0 +1,14 @@
+.search {
+    margin:0; 
+    padding:0; 
+    background: url(/images/road.jpg) no-repeat center center fixed; 
+    height: 330px;
+    -webkit-background-size: cover; 
+    -moz-background-size: cover; 
+    -o-background-size: cover; 
+    background-size: cover;
+}
+
+span.twitter-typeahead input#startCity {
+    background-color: inherit;
+}

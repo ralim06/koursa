@@ -1,25 +1,31 @@
-<div ng-show="showSearch">
-    <form name="formSearch" ng-submit="submit(searchCriteria)" ng-controller="SearchController">
-        Ville de départ : <input id="startCity" name="startCity" ng-model="searchCriteria.startCity" class="typeahead" type="text" placeholder="Ville de départ" required>
-        <div ng-show="formSearch.$submitted || formSearch.startCity.$touched">
-            <div ng-show="formSearch.startCity.$error.required">Le point de départ est obligatoire.</div>
-        </div>
-
-        Ville de d'arrivée : <input id="endCity" name="endCity" ng-model="searchCriteria.endCity" class="typeahead" type="text" placeholder="Ville d'arrivée" required>
-        <div ng-show="formSearch.$submitted || formSearch.endCity.$touched">
-            <div ng-show="formSearch.endCity.$error.required">Le point de départ est obligatoire.</div>
-        </div>
-        Le
-        <div id="datepicker" name="datepicker" ng-model="searchCriteria.datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
-            <input ng-model="searchCriteria.date" class="form-control" type="text" readonly required/>
-            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-            <div ng-show="formSearch.$submitted || formSearch.datepicker.$touched">
-                <div ng-show="formSearch.datepicker.$error.required">Tell us date.</div>
+<div ng-show="showSearch" class="search">
+    
+    <form class="form-horizontal" role="form" name="formSearch" ng-submit="submit(searchCriteria)" ng-controller="SearchController">
+          <div class="form-group">
+            <label class="col-sm-1 col-sm-offset-5 control-label"><span class="glyphicon glyphicon-log-out"></span></label>
+            <div class="col-sm-5">
+              <input placeholder="Départ" class="form-control" type="text" id="startCity" name="startCity" ng-model="searchCriteria.startCity" required>
+              <div ng-show="formSearch.$submitted || formSearch.startCity.$touched">
+                <div ng-show="formSearch.startCity.$error.required">Le point de départ est obligatoire.</div>
+              </div>
             </div>
-        </div>
-        <input type="submit"    value="Submit">
+          </div>
+          <div class="form-group">
+            <label class="col-sm-1 col-sm-offset-5 control-label"><span class="glyphicon glyphicon-log-in"></span></label>
+            <div class="col-sm-5">
+              <input placeholder="Arrivée" class="form-control typeahead" type="text" id="endCity" name="endCity" ng-model="searchCriteria.endCity" required>
+              <div ng-show="formSearch.$submitted || formSearch.endCity.$touched">
+                <div ng-show="formSearch.endCity.$error.required">Le point de départ est obligatoire.</div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div style="text-align: center;">
+            <input class="btn btn-primary" name="commit" type="submit" value="Chercher" />
+          </div>
     </form>
 </div>
+<link rel="stylesheet" href="css/search.css">
 <script type="text/javascript">
     // Waiting for the DOM ready...
     $(function(){
@@ -30,8 +36,7 @@
             // data source
             prefetch: 'data/countries.json',
             // max item numbers list in the dropdown
-            limit: 10,
-
+            limit: 10
         });
 
         $('#endCity').typeahead({
@@ -39,8 +44,7 @@
             // data source
             prefetch: 'data/countries.json',
             // max item numbers list in the dropdown
-            limit: 10,
-
+            limit: 10
         });
 
 

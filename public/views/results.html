@@ -1,12 +1,40 @@
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
+
 <div ng-show="showResults">
     <a href = "#search">Modifier la recherche</a>
     <h2> Resultats </h2>
-    <ul ng-controller="ResultsController">
-        <li ng-repeat="result in results">
-            {{result.crs_id}}|{{result.crs_labelle}}
-        </li>
-        <li class="animate-repeat" ng-if="results.length == 0">
-            <strong>No results found...</strong>
-        </li>
-    </ul>
+    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Libelle</th>
+                <th>Debut</th>
+                <th>Fin</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>#</th>
+                <th>Libelle</th>
+                <th>Debut</th>
+                <th>Fin</th>
+            </tr>
+        </tfoot>
+        <tbody ng-controller="ResultsController">
+            <tr ng-repeat="result in results">
+                <td>{{result.crs_id}}</td>
+                <td>{{result.crs_labelle}}</td>
+                <td>{{result.crs_date_debut}}</td>
+                <td>{{result.crs_date_fin}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+
+<script type="text/javascript">
+ $(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>

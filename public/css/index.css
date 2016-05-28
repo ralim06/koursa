@@ -1,0 +1,15 @@
+.testClass > input {
+    border-bottom: 3px solid #1A4987;
+    border-left: transparent;
+    border-right: transparent;
+    border-top: transparent;
+}
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+label{margin-left: 20px;}
+#datepicker{width:180px; margin: 0 20px 20px 20px;}
+#datepicker > span:hover{cursor: pointer;}
+td.day.today {
+    background-color: yellow;
+}
