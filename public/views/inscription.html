@@ -1,0 +1,81 @@
+<form name="userForm">
+
+    <input 
+        type="text" 
+        name="username" 
+        ng-model="user.username" 
+        ng-minlength="3" 
+        ng-maxlength="8"
+        required>
+
+    <!-- show an error if username is too short -->
+    <p ng-show="userForm.username.$error.minlength">Username is too short.</p>
+
+    <!-- show an error if username is too long -->
+    <p ng-show="userForm.username.$error.maxlength">Username is too long.</p>
+
+    <!-- show an error if this isn't filled in -->
+    <p ng-show="userForm.username.$error.required">Your username is required.</p>
+
+</form>
+<div style="padding-top: 30px" class="panel-body" ng-controller="InscriptionController">
+    <form name="loginForm" class="form-horizontal" method="post"  ng-submit="submit()" novalidate form-autofill-fix>				
+            <div style="margin-top: 25px" class="input-group">
+                    <span class="input-group-addon"><i
+                            class="glyphicon glyphicon-user"></i></span> <input type="text"
+                            class="form-control" name="email"
+                            ng-model="credentials.email" placeholder="Votre email"
+                            required />
+            </div>
+            <div class="error"
+                    ng-show="(submitted  || loginForm.email.$dirty)  && loginForm.email.$invalid">
+                    <p class="error" ng-show="loginForm.email.$error.required">'email'
+                            est obligatoire</p>
+            </div>
+            <div style="margin-top: 25px" class="input-group">
+                    <span class="input-group-addon"><i
+                            class="glyphicon glyphicon-user"></i></span> <input type="text"
+                            class="form-control" name="email-confirm"
+                            ng-model="credentials.email-confirm" placeholder="Confirmez votre email"
+                            required />
+            </div>
+            <div class="error"
+                    ng-show="(submitted  || loginForm.username.$dirty)  && loginForm.username.$invalid">
+                    <p class="error" ng-show="loginForm.username.$error.required">'email'
+                            est obligatoire</p>
+            </div>
+            <div style="margin-top: 25px" class="input-group">
+                    <span class="input-group-addon"><i
+                            class="glyphicon glyphicon-lock"></i></span> <input type="password"
+                            class="form-control" name="password"
+                            ng-model="credentials.password" placeholder="Mot de passe" required />
+            </div>
+            <div class="error"
+                    ng-show="(submitted  || loginForm.password.$dirty)  && loginForm.password.$invalid">
+                    <p class="error" ng-show="loginForm.password.$error.required">'Mot de passe'
+                            est obligatoire</p>
+            </div>
+            <div style="margin-top: 25px" class="input-group">
+                    <span class="input-group-addon"><i
+                            class="glyphicon glyphicon-lock"></i></span> <input type="password"
+                            class="form-control" name="password-confirm"
+                            ng-model="credentials.password" placeholder="Confirmez le mot de passe" required />
+            </div>
+            <div class="error"
+                    ng-show="(submitted  || loginForm.password-confirm.$dirty)  && loginForm.password-confirm.$invalid">
+                    <p class="error" ng-show="loginForm.password-confirm.$error.required">'Confirmation du mot de passe'
+                            La confirmation du mot de passe est obligatoire</p>
+            </div>
+            <div style="margin-top: 10px" class="form-group">
+                    <!-- Button -->
+
+                    <div class="col-sm-12 controls">
+                            <input type="submit" id="btn-login" class="btn btn-success"
+                                   value="Se connecter" ng-disabled=""/>
+                    </div>
+
+            </div>
+            <p ng-show="error" class="error">Le mot de passe est incorrect.</p>
+
+    </form>
+</div>

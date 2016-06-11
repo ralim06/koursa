@@ -6,14 +6,22 @@ function($stateProvider, $urlRouterProvider, USER_ROLES) {
   
   // Now set up the states
   $stateProvider
-      .state('login', {
-          url: "/login",
-          templateUrl: "views/login.html",
-          controllerAs: "LoginCtrl",
-          data: {
-              authorizedRoles: [USER_ROLES.all /*USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest*/]
-          }
-      })
+    .state('inscription', {
+        url: "/inscription",
+        templateUrl: "views/testRegister.html",
+        controllerAs: "InscriptionCtrl",
+        data: {
+            authorizedRoles: [USER_ROLES.all]
+        }
+    })
+    .state('login', {
+        url: "/login",
+        templateUrl: "views/login.html",
+        controllerAs: "LoginCtrl",
+        data: {
+            authorizedRoles: [USER_ROLES.all /*USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest*/]
+        }
+    })
     .state('search', {
       url: "/search",
       templateUrl: "views/search.html",
@@ -30,7 +38,7 @@ function($stateProvider, $urlRouterProvider, USER_ROLES) {
           authorizedRoles: [USER_ROLES.all]
       }
     })
-  	.state('private', {
+    .state('private', {
       url: "/private",
       templateUrl: "views/private.html",
       controllerAs: "PrivateController",
@@ -43,6 +51,20 @@ function($stateProvider, $urlRouterProvider, USER_ROLES) {
          templateUrl: 'views/404.html',
          data: {
              displayName: false
+         }
+     })
+     .state('qui-sommes-nous', {
+         url: '/qui-sommes-nous',
+         templateUrl: 'views/qui-sommes-nous.html',
+         data: {
+          authorizedRoles: [USER_ROLES.all]
+         }
+     })
+     .state('faq', {
+         url: '/faq',
+         templateUrl: 'views/faq.html',
+         data: {
+          authorizedRoles: [USER_ROLES.all]
          }
      })
     ;

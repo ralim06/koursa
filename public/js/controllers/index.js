@@ -1,35 +1,7 @@
 var app = angular.module('indexApp', [
     'materialDatePicker',
-    'ngRoute'
-]);
-
-/**
- * Configuration du module principal : routeApp
- */
-app.config(['$routeProvider',
-    function($routeProvider) {
-        // Système de routage
-        $routeProvider
-            .when('/search', {
-                templateUrl: 'views/search.html',
-                controller: 'SearchController'
-            })
-            .when('/results', {
-                templateUrl: 'views/results.html',
-                controller: 'ResultsController'
-            })
-            .when('/login', {
-                templateUrl: 'views/login.html',
-                controller: 'PostController'
-            })
-            .when('/success', {
-                templateUrl: 'views/success.html',
-                controller: 'SuccessController'
-            })
-            .otherwise({
-                redirectTo: '/search'
-            });
-    }
+    'ngRoute',
+    'ngMessages'
 ]);
 
 app.controller('SearchController', ['$scope', '$location', '$http', '$q', function($scope, $location, $http, $q) {
@@ -65,6 +37,12 @@ app.controller('SearchCtrl', ["$scope",
         $scope.list = [];
     }]);
 
+app.controller('InscriptionController', ["$scope",
+    function($scope) {
+        $scope.searchCriteria = {startDate: "John", endDate: "Doe"};
+        $scope.list = [];
+    }]);
+
 app.controller('PostController', ['$scope', '$http', '$location', function($scope, $http, $location) {
         this.postForm = function() {
         
@@ -79,39 +57,17 @@ app.controller('PostController', ['$scope', '$http', '$location', function($scop
                 data: encodedString,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
-            .success(function(data, status, headers, config) {
+            .success(function(data) {
                 console.log(data);
-                if ( data != null && data.length == 1 && data[0].user_login == jQuery("#inputUsername").val() 
-                    && data[0].user_passwd == jQuery("#inputPassword").val()) {
+                if ( data !== null && data.length === 1 && data[0].user_login === jQuery("#inputUsername").val() 
+                    && data[0].user_passwd === jQuery("#inputPassword").val()) {
                     $location.path( "/success" );
                 } else {
                     $scope.errorMsg = "Login not correct";
                 }
             })
-            .error(function(data, status, headers, config) {
+            .error(function() {
                 $scope.errorMsg = 'Unable to submit form';
-            })
-        }
-        
+            });
+        };
     }]);
-
-
-app.controller('SuccessController', ["$scope",
-    function($scope) {
-    }]
-);
-
-
-app.factory("MenuService", function() {
-    var itemsOfMenu = 
-        [{id: 0, label: 'Qui sommes nous ?', url:"#login"},
-         {id: 1, label: 'Comment ça marcher ?', url:"#login"},
-         {id: 2, label: 'Inscription', url:"#login"},
-         {id: 3, label: 'Connexion', url:"#login"}];
-
-  return {
-    all: function() {
-      return itemsOfMenu;
-    }
-  };
-});
